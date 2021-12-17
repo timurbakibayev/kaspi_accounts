@@ -15,7 +15,7 @@ class Account:
     currency: str
     balance: Decimal
 
-    def __lt__(self, other: "Account"):
+    def __lt__(self, other: "Account") -> bool:
         assert isinstance(other, Account)
         if self.currency != other.currency:
             raise CurrencyMismatchError
@@ -32,6 +32,9 @@ class Account:
     @classmethod
     def from_json(cls, json_str: str) -> "Account":  # Factory
         obj = json.loads(json_str)
+        assert "id" in obj
+        assert "currency" in obj
+        assert "balance" in obj
         return Account(
             id_=UUID(obj["id"]),
             currency=obj["currency"],
