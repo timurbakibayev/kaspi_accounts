@@ -1,6 +1,7 @@
+import random
 from dataclasses import dataclass
 from decimal import Decimal
-from uuid import UUID
+from uuid import UUID, uuid4
 import json
 
 
@@ -35,4 +36,12 @@ class Account:
             id_=UUID(obj["id"]),
             currency=obj["currency"],
             balance=Decimal(obj["balance"]),
+        )
+
+    @classmethod
+    def random(cls) -> "Account":  # Factory
+        return Account(
+            id_=uuid4(),
+            currency="KZT",
+            balance=Decimal(random.randint(1, 1000)),
         )
