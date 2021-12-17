@@ -32,10 +32,13 @@ class Account:
     @classmethod
     def from_json(cls, json_str: str) -> "Account":  # Factory
         obj = json.loads(json_str)
-        assert "id" in obj
         assert "currency" in obj
         assert "balance" in obj
-        return Account(
+
+        if "id" not in obj:
+            raise ValueError("id should be in json string!")
+
+        return cls(
             id_=UUID(obj["id"]),
             currency=obj["currency"],
             balance=Decimal(obj["balance"]),
@@ -43,7 +46,7 @@ class Account:
 
     @classmethod
     def random(cls) -> "Account":  # Factory
-        return Account(
+        return cls(
             id_=uuid4(),
             currency="KZT",
             balance=Decimal(random.randint(1, 1000)),

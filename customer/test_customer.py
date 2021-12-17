@@ -50,3 +50,7 @@ class TestCustomer:
             currency="KZT",
             balance=Decimal(500),
         )
+
+        # TODO: complete test
+
+        # TODO: explain tests: why we need them, how to write etc.
