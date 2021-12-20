@@ -1,6 +1,7 @@
 import random
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Optional
 from uuid import UUID, uuid4
 import json
 
@@ -11,7 +12,7 @@ class CurrencyMismatchError(ValueError):
 
 @dataclass
 class Account:
-    id_: UUID
+    id_: Optional[UUID]
     currency: str
     balance: Decimal
 
