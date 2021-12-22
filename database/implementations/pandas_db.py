@@ -17,7 +17,11 @@ class AccountDatabasePandas(AccountDatabase):
         except:
             pass
 
-    def save(self, account: Account) -> None:
+    def clear_all(self) -> None:
+        self._objects = pd.DataFrame(columns=["id", "currency", "balance"])
+        self._objects.to_pickle("database.pk")
+
+    def _save(self, account: Account) -> None:
         if account.id_ is None:
             account.id_ = uuid4()
 

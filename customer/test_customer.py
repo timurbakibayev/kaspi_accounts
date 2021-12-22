@@ -52,5 +52,3 @@ class TestCustomer:
         )
 
         # TODO: complete test
-
-        # TODO: explain tests: why we need them, how to write etc.
