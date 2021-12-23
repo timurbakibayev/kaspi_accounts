@@ -1,3 +1,4 @@
+import sys
 from decimal import Decimal
 from uuid import uuid4
 
@@ -34,3 +35,4 @@ if __name__ == "__main__":
     currency = input("Enter Currency: ")
     balance = Decimal(input("Enter balance: "))
     create_account(database=database, balance=balance, currency=currency)
+    sys.exit(0)
