@@ -15,15 +15,15 @@ class AccountDatabaseRAM(AccountDatabase):
         if account.id_ is None:
             account.id_ = uuid4()
 
-        self._objects[account.id_] = account.to_json()
+        self._objects[account.id_] = account.to_json_str()
 
     def clear_all(self) -> None:
         self._objects = dict()
 
     def get_objects(self) -> List[Account]:
-        return [Account.from_json(v) for k,v in self._objects.items()]
+        return [Account.from_json_str(v) for k, v in self._objects.items()]
 
     def get_object(self, id_: UUID) -> Account:
         if id_ not in self._objects:
             raise ObjectNotFound("RAM error: object not found")
-        return Account.from_json(self._objects[id_])
+        return Account.from_json_str(self._objects[id_])
