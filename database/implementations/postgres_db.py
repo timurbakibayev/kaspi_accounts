@@ -71,7 +71,7 @@ class AccountDatabasePostgres(AccountDatabase):
         print("Trying to find", str(id_))
         data = cur.fetchall()
         if len(data) == 0:
-            raise ObjectNotFound
+            raise ObjectNotFound("Postgres: Object not found")
         cols = [x[0] for x in cur.description]
         # This is the implementation without Pandas
         # for i in range(len(cols)):

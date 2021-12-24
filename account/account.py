@@ -23,16 +23,18 @@ class Account:
             raise CurrencyMismatchError
         return self.balance < other.balance
 
-    def to_json(self) -> str:
-        json_repr = {
+    def to_json(self) -> dict:
+        return {
             "id": str(self.id_),
             "currency": self.currency,
             "balance": float(self.balance),
         }
-        return json.dumps(json_repr)
+
+    def to_json_str(self) -> str:
+        return json.dumps(self.to_json())
 
     @classmethod
-    def from_json(cls, json_str: str) -> "Account":  # Factory
+    def from_json_str(cls, json_str: str) -> "Account":  # Factory
         obj = json.loads(json_str)
         assert "currency" in obj
         assert "balance" in obj

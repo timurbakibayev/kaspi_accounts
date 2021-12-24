@@ -44,7 +44,7 @@ class TestAccount:
     def test_json_import_export(self) -> None:
         account = Account.random()
 
-        json_account = account.to_json()
+        json_account = account.to_json_str()
         assert json.loads(json_account) == {
             "id": str(account.id_),
             "currency": account.currency,
@@ -54,7 +54,7 @@ class TestAccount:
     def test_account_from_json(self) -> None:
         test_json = '{"id": "a7cf405f-21ec-41b1-b22e-10298eb42510", "currency": "KZT", "balance": 10.0}'
 
-        account = Account.from_json(test_json)
+        account = Account.from_json_str(test_json)
         assert isinstance(account, Account)
         assert account.id_ == UUID("a7cf405f-21ec-41b1-b22e-10298eb42510")
         assert account.balance == Decimal(10)
@@ -63,5 +63,5 @@ class TestAccount:
     def test_to_json_from_json(self) -> None:
         # Check all fields are serialized
         account = Account.random()
-        account2 = Account.from_json(account.to_json())
+        account2 = Account.from_json_str(account.to_json_str())
         assert account2 == account
