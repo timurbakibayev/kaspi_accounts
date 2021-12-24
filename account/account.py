@@ -54,6 +54,8 @@ class Account:
         root.attrib["id"] = str(self.id_)
         root.attrib["currency"] = str(self.currency)
         root.attrib["balance"] = str(self.balance)
+        gg = ET.SubElement(root, 'abc')
+        c = ET.SubElement(gg, 'cde')
         return xml.etree.ElementTree.tostring(root, encoding='utf8', method='xml')
 
     @classmethod
