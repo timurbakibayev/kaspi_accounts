@@ -19,3 +19,7 @@ class TestXMLAccount:
         assert account.id_ == UUID("a7cf405f-21ec-41b1-b22e-10298eb42510")
         assert account.balance == Decimal(10)
         assert account.currency == "KZT"
+
+    def test_to_xml(self) -> None:
+        account = Account.random()
+        assert Account.from_xml(account.to_xml()) == account

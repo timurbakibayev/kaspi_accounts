@@ -4,6 +4,7 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID, uuid4
 import xml.etree.ElementTree as ET
+import xml
 import json
 
 
@@ -47,6 +48,13 @@ class Account:
             currency=obj["currency"],
             balance=Decimal(obj["balance"]),
         )
+
+    def to_xml(self) -> str:
+        root = ET.Element("account")
+        root.attrib["id"] = str(self.id_)
+        root.attrib["currency"] = str(self.currency)
+        root.attrib["balance"] = str(self.balance)
+        return xml.etree.ElementTree.tostring(root, encoding='utf8', method='xml')
 
     @classmethod
     def from_xml(cls, xml_str: str) -> "Account":
