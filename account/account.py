@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Optional
 from uuid import UUID, uuid4
+import xml.etree.ElementTree as ET
 import json
 
 
@@ -45,6 +46,29 @@ class Account:
             id_=UUID(obj["id"]),
             currency=obj["currency"],
             balance=Decimal(obj["balance"]),
+        )
+
+    @classmethod
+    def from_xml(cls, xml_str: str) -> "Account":
+        root = ET.fromstring(xml_str)
+        if root.tag != "account":
+            raise ValueError("Not an account")
+        id_ = UUID(root.attrib["id"])
+        currency = root.attrib["currency"]
+        balance = Decimal(root.attrib["balance"])
+        for child in root:
+            assert isinstance(child, ET.Element)
+            if child.tag == "id":
+                id_ = UUID(child.text)
+            if child.tag == "currency":
+                currency = child.text
+            if child.tag == "balance":
+                balance = Decimal(child.text)
+
+        return Account(
+            id_=id_,
+            currency=currency,
+            balance=balance,
         )
 
     @classmethod
